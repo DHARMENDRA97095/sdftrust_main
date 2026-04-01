@@ -37,6 +37,7 @@ function Herosection() {
         if (result.status === "success" && Array.isArray(result.data)) {
           setHeroCards(result.data);
 
+          // default video only once
           const firstVideo = getYoutubeId(result.data[0]?.youtube_link);
           if (firstVideo) setActiveVideo(firstVideo);
         }
@@ -48,19 +49,12 @@ function Herosection() {
     fetchHeroCard();
   }, []);
 
-  // 🔁 Auto Slide
+  // 🔁 Auto Slide (ONLY slider move, video NOT change)
   useEffect(() => {
     if (heroCards.length === 0) return;
 
     intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const next = (prev + 1) % heroCards.length;
-
-        const nextVideo = getYoutubeId(heroCards[next]?.youtube_link);
-        if (nextVideo) setActiveVideo(nextVideo);
-
-        return next;
-      });
+      setCurrentIndex((prev) => (prev + 1) % heroCards.length);
     }, 3000);
 
     return () => clearInterval(intervalRef.current);
@@ -71,14 +65,7 @@ function Herosection() {
 
   const handleMouseLeave = () => {
     intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => {
-        const next = (prev + 1) % heroCards.length;
-
-        const nextVideo = getYoutubeId(heroCards[next]?.youtube_link);
-        if (nextVideo) setActiveVideo(nextVideo);
-
-        return next;
-      });
+      setCurrentIndex((prev) => (prev + 1) % heroCards.length);
     }, 3000);
   };
 
@@ -120,7 +107,7 @@ function Herosection() {
         </div>
       </div>
 
-      {/* 🎯 3-ITEM CENTER SLIDER */}
+      {/* 🎯 3 ITEM SLIDER */}
       <div
         className="absolute bottom-24 left-0 w-full z-30 flex justify-center"
         onMouseEnter={handleMouseEnter}
@@ -142,7 +129,7 @@ function Herosection() {
                   key={index}
                   onClick={() => {
                     if (vid) {
-                      setActiveVideo(vid);
+                      setActiveVideo(vid); // ✅ ONLY HERE VIDEO CHANGE
                       setCurrentIndex(index);
                     }
                   }}
@@ -165,7 +152,7 @@ function Herosection() {
         </div>
       </div>
 
-      {/* ✅ SVG CURVE */}
+      {/* ✅ SVG */}
       <div className="absolute bottom-0 w-full overflow-hidden leading-none z-10">
         <svg
           className="w-full h-24 md:h-32 lg:h-40"
