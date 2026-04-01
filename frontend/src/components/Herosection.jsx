@@ -143,7 +143,7 @@ function Herosection() {
                   <img
                     src={`${ADMIN_BASE_URL}${card.image_url}`}
                     alt={card.title}
-                    className="w-[150px] h-[80px] object-cover"
+                    className="w-[100px] h-[60px] object-cover"
                   />
                 </div>
               );
