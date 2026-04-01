@@ -61,7 +61,7 @@ function Herosection() {
   const handleMouseLeave = () => {
     intervalRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % heroCards.length);
-    }, 3000);
+    }, 15000);
   };
 
   // 🎥 Active Video
