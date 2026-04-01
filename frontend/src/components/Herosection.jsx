@@ -27,7 +27,7 @@ function Herosection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
 
-  // 🔥 Fetch API (UNCHANGED PATH)
+  // 🔥 Fetch API (UNCHANGED)
   useEffect(() => {
     const fetchHeroCard = async () => {
       try {
@@ -48,15 +48,18 @@ function Herosection() {
     fetchHeroCard();
   }, []);
 
-  // 🔥 Auto Slide
+  // 🔥 Infinite Auto Slide
   useEffect(() => {
     if (heroCards.length === 0) return;
 
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => {
-        const next = (prev + 1) % heroCards.length;
-        const nextVideo = getYoutubeId(heroCards[next]?.youtube_link);
+        const next = prev + 1;
+        const realIndex = next % heroCards.length;
+
+        const nextVideo = getYoutubeId(heroCards[realIndex]?.youtube_link);
         if (nextVideo) setActiveVideo(nextVideo);
+
         return next;
       });
     }, 3000);
@@ -64,15 +67,18 @@ function Herosection() {
     return () => clearInterval(intervalRef.current);
   }, [heroCards]);
 
-  // 🔥 Hover Stop
+  // ⏸️ Hover Stop
   const handleMouseEnter = () => clearInterval(intervalRef.current);
 
   const handleMouseLeave = () => {
     intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => {
-        const next = (prev + 1) % heroCards.length;
-        const nextVideo = getYoutubeId(heroCards[next]?.youtube_link);
+        const next = prev + 1;
+        const realIndex = next % heroCards.length;
+
+        const nextVideo = getYoutubeId(heroCards[realIndex]?.youtube_link);
         if (nextVideo) setActiveVideo(nextVideo);
+
         return next;
       });
     }, 3000);
@@ -81,12 +87,12 @@ function Herosection() {
   return (
     <section className="relative bg-black overflow-hidden pb-32">
 
-      {/* 🔥 MAIN VIDEO BANNER */}
-      <div className="absolute inset-0 z-0">
+      {/* 🎥 FULL WIDTH VIDEO */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
         {activeVideo && (
           <iframe
-            className="w-full h-full object-cover"
-            src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&mute=1&loop=1&playlist=${activeVideo}`}
+            className="w-full h-full absolute top-0 left-0 pointer-events-none scale-125"
+            src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&mute=1&controls=0&loop=1&playlist=${activeVideo}`}
             title="Banner Video"
             frameBorder="0"
             allow="autoplay; encrypted-media"
@@ -96,7 +102,7 @@ function Herosection() {
         <div className="absolute inset-0 bg-black/50"></div>
       </div>
 
-      {/* 🔥 CONTENT */}
+      {/* 📝 CONTENT */}
       <div className="relative z-10 w-[95%] mx-auto min-h-[600px] flex items-center">
         <div className="max-w-2xl text-white pl-6 md:pl-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -116,29 +122,39 @@ function Herosection() {
         </div>
       </div>
 
-      {/* 🔥 SLIDER (API BASED) */}
+      {/* 🎯 CENTER INFINITE SLIDER */}
       <div
-        className="absolute bottom-24 left-0 w-full z-30"
+        className="absolute bottom-24 left-0 w-full z-30 overflow-hidden"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="w-full overflow-x-auto">
-          <div className="flex gap-4 px-6 w-max">
+        <div className="flex justify-center">
 
-            {heroCards.map((card, index) => {
+          <div
+            className="flex gap-4"
+            style={{
+              transform: `translateX(-${(currentIndex % heroCards.length) * 200}px)`,
+              transition: "transform 0.6s ease-in-out",
+            }}
+          >
+
+            {[...heroCards, ...heroCards].map((card, index) => {
               const vid = getYoutubeId(card.youtube_link);
+              const realIndex = index % heroCards.length;
 
               return (
                 <div
-                  key={card.id}
+                  key={index}
                   onClick={() => {
                     if (vid) {
                       setActiveVideo(vid);
-                      setCurrentIndex(index);
+                      setCurrentIndex(realIndex);
                     }
                   }}
                   className={`cursor-pointer flex-shrink-0 rounded-lg overflow-hidden border-2 transition 
-                  ${currentIndex === index ? "border-yellow-400 scale-110" : "border-transparent"}`}
+                  ${currentIndex % heroCards.length === realIndex
+                    ? "border-yellow-400 scale-110"
+                    : "border-transparent"}`}
                 >
                   <img
                     src={`${ADMIN_BASE_URL}${card.image_url}`}
@@ -150,6 +166,7 @@ function Herosection() {
             })}
 
           </div>
+
         </div>
       </div>
 
