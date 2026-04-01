@@ -171,7 +171,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/3">
-              <div className="flex items-center gap-3 mb-6">
+              {/* <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-2xl shadow-sm animate-float">
                   🌱
                 </div>
@@ -180,7 +180,7 @@ const Home = () => {
                   <br />
                   Organization
                 </h2>
-              </div>
+              </div> */}
 
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Duis eterueh voie roiar ma inots elitrum velite ne cuolestieru
