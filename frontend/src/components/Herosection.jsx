@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { API_BASE_URL, ADMIN_BASE_URL } from "../config";
 
-// 🎯 Extract YouTube ID
 const getYoutubeId = (url) => {
   try {
     const parsed = new URL(url);
@@ -26,7 +25,6 @@ function Herosection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef(null);
 
-  // 🔥 Fetch API
   useEffect(() => {
     const fetchHeroCard = async () => {
       try {

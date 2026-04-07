@@ -40,14 +40,14 @@ const Navbar = () => {
       ],
     },
     {
-      name: 'Our Work',
+      name: 'Our Projects',
       path: '/projects',
-      hasDropdown: true,
-      dropdownItems: [
-        { label: 'Ongoing Projects', path: '/projects#ongoing', icon: '🏢' },
-        { label: 'State-wise Listings', path: '/projects#listings', icon: '🗺️' },
-        { label: 'Impact Snapshot', path: '/projects#impact', icon: '📊' },
-      ],
+      // hasDropdown: true,
+      // dropdownItems: [
+      //   { label: 'Ongoing Projects', path: '/projects#ongoing', icon: '🏢' },
+      //   { label: 'State-wise Listings', path: '/projects#listings', icon: '🗺️' },
+      //   { label: 'Impact Snapshot', path: '/projects#impact', icon: '📊' },
+      // ],
     },
     {
       name: 'Publications',

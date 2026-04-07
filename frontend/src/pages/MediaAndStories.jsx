@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import { API_BASE_URL, ADMIN_BASE_URL } from '../config';
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 
 const MediaAndStories = () => {
@@ -13,12 +12,10 @@ const MediaAndStories = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // States for Videos
   const [videos, setVideos] = useState([]);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
   const [playingVideoId, setPlayingVideoId] = useState(null);
 
-  // Handle URL hash navigation (e.g., /media#videos)
   useEffect(() => {
     if (location.hash) {
       const targetTab = location.hash.replace('#', '');

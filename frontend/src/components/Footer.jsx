@@ -87,7 +87,7 @@ const Footer = () => {
 
       {/* 🔻 BOTTOM STRIP WITH LINK */}
       <div className="bg-primary border-t border-white/20 text-center text-xs text-gray-200 py-4">
-        © {new Date().getFullYear()} Sustainable Development Foundation. All rights reserved ||{" "}
+        © {new Date().getFullYear()} Sustainable Development Foundation ||{" "}
         
         <a
           href="https://hrntechsolutions.com"  // 👉 apna link yaha daalo
