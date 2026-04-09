@@ -19,6 +19,7 @@ import Testimonials from './pages/Testimonials';
 import VolunteerForm from './pages/VolenteerForm';
 import ProgramDetails from './pages/Programdetails';
 import ProjectDetails from './pages/Projectdetails';
+// import RazorpayButton from './pages/RazorpayPayment';
 
 
 
@@ -48,6 +49,8 @@ function App() {
           <Route path="impact" element={<ImpactAndEvidence />} />
           <Route path="contact" element={<Contact />} />
           <Route path="donate" element={<Donate />} />
+          {/* <Route path="donate/razorpay" element={<RazorpayButton />} /> */}
+
 
         </Route>
       </Routes>
